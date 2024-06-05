@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:webtoon_app/screens/login_screen.dart';
 import 'package:webtoon_app/services/api_service.dart';
 
 void main() {
-  // ApiService().getNoticeList();
-  // ApiService().getCostDetail();
-  ApiService().doLogin();
   runApp(const MyApp());
 }
 
@@ -13,9 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Koi GroupWare Demo',
-      home: Text('asdf'),
+      home: LoginScreen(),
     );
   }
 }

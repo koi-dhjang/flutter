@@ -30,20 +30,23 @@ class WebtoonWidget extends StatelessWidget {
       child: Column(
         children: [
           // Image.network(thumb), // LG사내망에서 접근불가
-          Container(
-            clipBehavior: Clip.hardEdge, // 이건 다시봐야할듯?
-            decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 15,
-                    offset: const Offset(10, 10),
-                    color: Colors.black.withOpacity(0.3),
-                  )
-                ]),
-            width: 250,
-            height: 350,
+          Hero(
+            tag: id,
+            child: Container(
+              clipBehavior: Clip.hardEdge, // 이건 다시봐야할듯?
+              decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 15,
+                      offset: const Offset(10, 10),
+                      color: Colors.black.withOpacity(0.3),
+                    )
+                  ]),
+              width: 250,
+              height: 350,
+            ),
           ),
           const SizedBox(
             height: 10,

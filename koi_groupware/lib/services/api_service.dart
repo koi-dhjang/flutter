@@ -1,72 +1,32 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:webtoon_app/models/mainMenu_model.dart';
+import 'package:webtoon_app/models/user_model.dart';
 
 class ApiService {
   final String baseUrl = 'http://gw.koiware.co.kr:2012'; //운영계
   // final String baseUrl = 'http://localhost:8080'; //개발계
   final String noticeList = '/main/refNoticeList.do';
   final String costDetail = '/cost/getCostDetail.do';
-  final String login = '/login/loginProc.do';
 
-  void doLogin() async {
+// TODO: 유저정보가져오기
+  Future<UserModel> getUserInfo(String id, String pw) async {
+    const String login = '/login/loginProc.do';
+
     final url = Uri.parse('$baseUrl$login');
     final headers = {"Content-Type": "application/json"};
-    final body = jsonEncode({"usr_id": "koi.dhjang", "password": "koiware123"});
+    final body = jsonEncode({"usr_id": id, "password": pw});
 
-    try {
-      final res = await http.post(url, headers: headers, body: body);
-
-      if (res.statusCode == 200) {
-        print('success ${res.body}');
-      } else {
-        print('fail ${res.statusCode}');
-        print('fail ${res.body}');
-      }
-    } catch (e) {
-      print('Error$e');
-    }
-  }
-
-  void getNoticeList() async {
-    final url = Uri.parse('$baseUrl$noticeList');
-    final headers = {"Content-Type": "application/json"};
-    final body = jsonEncode({
-      'nPage': 1,
-      'searchType': 'all',
-      'keyword': '',
-    });
-
-    try {
-      final res = await http.post(url, headers: headers, body: body);
-
-      if (res.statusCode == 200) {
-        print('success ${res.body}');
-        print(res.body);
-      } else {
-        print('fail ${res.statusCode}');
-        print('fail ${res.body}');
-      }
-    } catch (e) {
-      print('Error$e');
-    }
-  }
-
-  void getCostDetail() async {
-    final url = Uri.parse('$baseUrl$costDetail');
-    final Object param = {
-      'seq': '6843',
-    };
-
-    print(url);
-    print(param);
-
-    final res = await http.post(url, body: param);
+    final res = await http.post(url, headers: headers, body: body);
 
     if (res.statusCode == 200) {
       print(res.body);
-      return;
+      return UserModel.fromJson(jsonDecode(res.body));
     }
     throw Error();
   }
+
+// TODO: 메뉴정보가져오기
+  Future<List<MainmenuModel>> getMainMenuList(String empGrade) async {}
 }
